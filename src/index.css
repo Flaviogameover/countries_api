@@ -1,13 +1,350 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito Sans", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+    background-color: #fafafa;
+    overflow-y: scroll;
+    transition: all 0.2s;
+}
+
+.home {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 2%;
+}
+
+.darkmode-light {
+    background-color: #2b3945 !important;
+    color: #ffffff !important;
+}
+
+.darkmode-bg {
+    background-color: #202c37 !important;
+    color: #ffffff !important;
+}
+
+.darkmode-light svg {
+    color: white !important;
+}
+.darkmode-text {
+    color: white !important;
+}
+.darkmode-light input {
+    background-color: #2b3945 !important;
+    color: #ffffff !important;
+}
+
+.darkmode-input input {
+    background-color: #2b3945 !important;
+    color: #ffffff !important;
+}
+
+.darkmode-input input::placeholder {
+    color: white !important;
+}
+
+/*---------- Header ----------*/
+
+header {
+    background-color: white;
+    box-shadow: 0 2px 4px 0px rgb(0 0 0 / 24%);
+    transition: all 0.2s;
+}
+
+.header-desktop {
+    padding: 20px 2%;
+    margin: 0 auto;
+    max-width: 1440px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header-darkmode {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.header-darkmode svg {
+    font-size: 15px;
+}
+
+.header-darkmode p {
+    height: 20px;
+    padding: 0 5px;
+}
+
+/*---------- Home ----------*/
+
+.filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 2%;
+}
+
+.filter-input {
+    position: relative;
+}
+
+.filter-input svg {
+    position: absolute;
+    font-size: 20px;
+    color: #858585;
+    left: 25px;
+    top: 22px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.filter-input input {
+    width: 380px;
+    height: 48px;
+    padding-left: 55px;
+    border-radius: 5px;
+    border: 0;
+    outline: 0;
+    box-shadow: 0 0 4px 0px rgb(0 0 0 / 24%);
+    transition: all 0.2s;
+}
+
+.filter-input input::placeholder {
+    color: #858585;
+}
+
+.filter-select select {
+    height: 48px;
+    border-radius: 5px;
+    padding: 0 15px;
+    border: 0;
+    outline: 0;
+    box-shadow: 0 0 4px 0px rgb(0 0 0 / 24%);
+    transition: all 0.2s;
+    background-color: #fff;
+}
+
+.countries {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0 2%;
+}
+
+.country-single {
+    width: 21%;
+    margin: 30px 2%;
+    background-color: white;
+    box-shadow: 0 0 4px 0px rgb(0 0 0 / 24%);
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.country-single .country-img {
+    width: 100%;
+    max-height: 180px;
+}
+
+.country-img img {
+    max-height: 180px;
+    height: 180px;
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.country-info {
+    padding: 0 20px 20px;
+    font-size: 12px;
+}
+
+.country-info h3 {
+    color: #111517;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.country-info p {
+    padding: 3px 0;
+}
+
+.country-single a {
+    text-decoration: none;
+    color: hsl(200, 15%, 8%);
+    display: inline-block;
+}
+
+/*---------- Country Single ----------*/
+
+.country-page {
+    max-width: 1440px;
+    margin: 30px auto;
+    padding: 20px 2%;
+}
+
+.country-page-display {
+    padding: 50px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.back-btn {
+    padding: 10px 0;
+}
+
+.back-btn a {
+    display: inline-block;
+    text-decoration: none;
+    max-width: 150px;
+    font-size: 15px;
+    padding: 10px 30px;
+    border-radius: 6px;
+    box-shadow: 0 0 4px 0px rgb(0 0 0 / 24%);
+    color: #000;
+    transition: all 0.2s;
+}
+
+.back-btn svg {
+    vertical-align: -2px;
+}
+
+.country-flag {
+    width: 50%;
+}
+
+.country-flag img {
+    max-height: 500px;
+    height: 100%;
+    width: 100%;
+}
+
+.country-page-info {
+    width: 40%;
+    font-size: 17px;
+}
+
+.country-page-info h1 {
+    font-size: 35px;
+    padding: 20px 0;
+}
+
+.country-page-info span {
+    font-weight: 600;
+}
+
+.country-page-info p {
+    font-weight: 300 !important;
+}
+
+.info-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-left p,
+.info-right p {
+    line-height: 34px;
+}
+
+.info-border {
+    padding: 40px 0;
+}
+
+.border-countries {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.info-border a {
+    transition: all 0.2s;
+    color: #000;
+    text-decoration: none;
+    margin: 5px;
+    font-size: 14px;
+    padding: 5px 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 4px 0px rgb(0 0 0 / 24%);
+}
+
+@media screen and (max-width: 1000px) {
+    .countries {
+        justify-content: center;
+    }
+
+    .country-single {
+        width: 28%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .filter {
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: flex-start;
+    }
+
+    .filter-input {
+        margin-bottom: 10px;
+    }
+
+    .filter-input input {
+        width: 280px;
+    }
+
+    .countries {
+        justify-content: center;
+    }
+
+    .country-single {
+        width: 46%;
+    }
+
+    .country-page-display {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .country-flag {
+        width: 90%;
+    }
+
+    .country-page-info {
+        width: 90%;
+        font-size: 17px;
+    }
+
+    .country-page-info h1 {
+        padding: 40px 0 20px;
+    }
+
+    .info-flex {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .info-left,
+    .info-right {
+        padding: 20px 0;
+    }
+
+    .border-countries {
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .country-single {
+        width: 96%;
+    }
 }
