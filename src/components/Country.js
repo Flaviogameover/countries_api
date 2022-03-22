@@ -38,7 +38,7 @@ export const Country = ({ darkMode }) => {
     }, [params.country]);
 
     return (
-        <section className="country-page">
+        <main className="country-page">
             <Link
                 className={`back-btn ${
                     darkMode ? "darkmode-text darkmode-light" : ""
@@ -49,7 +49,7 @@ export const Country = ({ darkMode }) => {
             </Link>
             {
                 country &&
-                <main className="country-page-display">
+                <div className="country-page-display">
                 {country?.flags.png && (
                     <img
                         className="country-flag"
@@ -122,8 +122,8 @@ export const Country = ({ darkMode }) => {
                         </div>
                     )}
                 </div>
-            </main>
+            </div>
             }
-        </section>
+        </main>
     );
 };

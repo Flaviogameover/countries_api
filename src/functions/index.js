@@ -5,7 +5,7 @@ const format_number = (number) => {
 const format_link = (link, request) => {
 
     if(link.includes('timor') || link.includes('bissau')) return link;
-    return !request ? link.replace(" ", "-") : link.replace("-", " ");
+    return !request ? link.replaceAll(" ", "-") : link.replaceAll("-", " ");
 };
 
 export { format_number, format_link };

@@ -74,7 +74,7 @@ export const Home = ({ darkMode }) => {
     
 
     return (
-        <section className="home">
+        <main className="home">
             {scroll && <BsFillArrowUpCircleFill onClick={handleScroll} className={`scroll ${darkMode ? "darkmode-bg" : ""}`} />}
             <div className="filter">
                 <div
@@ -119,7 +119,7 @@ export const Home = ({ darkMode }) => {
                     </p>
                 </div>
             )}
-            <main className="countries">
+            <div className="countries">
                 {filteredCountries?.map((val, index) => (
                     <div
                         key={index}
@@ -161,7 +161,7 @@ export const Home = ({ darkMode }) => {
                         </div>
                     </div>
                 ))}
-            </main>
-        </section>
+            </div>
+        </main>
     );
 };

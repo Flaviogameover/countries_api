@@ -6,7 +6,7 @@ export const Header = ({ darkMode, setDarkMode }) => {
         <header className={darkMode ? "darkmode-light" : ""}>
             <div className="header-desktop">
                 <div className="header-title">
-                    <h2>Where in the world ?</h2>
+                    <h1>Where in the world ?</h1>
                 </div>
                 <div
                     onClick={() => setDarkMode(!darkMode)}

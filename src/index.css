@@ -56,6 +56,10 @@ header {
     transition: all 0.2s;
 }
 
+header h1{
+    font-size: 23px;
+}
+
 .header-desktop {
     padding: 20px 2%;
     margin: 0 auto;
