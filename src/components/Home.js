@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { BsFillArrowUpCircleFill } from "react-icons/bs";
+import { BiError } from "react-icons/bi";
 import { format_number, format_link } from "../functions/index";
 
 import { useState, useEffect } from "react";
@@ -8,24 +11,45 @@ import axios from "axios";
 export const Home = ({ darkMode }) => {
     const [countries, setCountries] = useState(null);
     const [filteredCountries, setFilteredCountries] = useState(null);
+    const [error, setError] = useState(null);
+    const [search, setSearch] = useState("");
+    const [scroll, setScroll] = useState(false);
 
     useEffect(() => {
-        (async () => {
-            const response = await axios.get(
-                "https://restcountries.com/v3.1/all"
-            );
+        try {
+            (async () => {
+                const response = await axios.get(
+                    "https://restcountries.com/v3.1/all"
+                );
 
-            setCountries(response.data);
-            setFilteredCountries(response.data);
-        })();
+                setCountries(response.data);
+                setFilteredCountries(response.data);
+            })();
+        } catch (e) {
+            console.error(e);
+        }
     }, []);
 
+    window.onscroll = (e) =>{
+        console.log(document.documentElement.scrollTop);
+        if(document.documentElement.scrollTop > 100) setScroll(true);
+        else setScroll(false);
+    };
+
     const handleSearch = (e) => {
-        let new_arr = countries.filter((country) =>
+        let new_arr = countries?.filter((country) =>
             country.name.common
                 .toLowerCase()
                 .includes(e.target.value.toLowerCase())
         );
+        setSearch(e.target.value);
+        setError(() => {
+            if (new_arr?.length > 0) {
+                return null;
+            } else {
+                return "Sorry, no results were found!";
+            }
+        });
         setFilteredCountries(new_arr);
     };
 
@@ -33,26 +57,49 @@ export const Home = ({ darkMode }) => {
         let new_arr = countries.filter((country) =>
             country.region.toLowerCase().includes(e.target.value.toLowerCase())
         );
+        document.querySelector("[name='filter_input']").value = "";
+        setError(null);
         setFilteredCountries(new_arr);
     };
 
+    const handleReset = () => {
+        setSearch("");
+        setError(null);
+        setFilteredCountries(countries);
+    };
+
+    const handleScroll = () => {
+        document.getElementsByTagName('html')[0].scrollIntoView({ behavior: "smooth" });
+    }
+    
+
     return (
         <section className="home">
+            {scroll && <BsFillArrowUpCircleFill onClick={handleScroll} className={`scroll ${darkMode ? "darkmode-bg" : ""}`} />}
             <div className="filter">
                 <div
                     className={`filter-input ${
                         darkMode ? "darkmode-input" : ""
                     }`}
                 >
-                    <AiOutlineSearch />
+                    <AiOutlineSearch className="search" />
                     <input
                         onChange={handleSearch}
+                        value={search}
+                        name="filter_input"
                         type="text"
                         placeholder="Search for a country..."
                     />
+                    {search && 
+                        <AiOutlineCloseCircle
+                            onClick={handleReset}
+                            className={`close-input`}
+                        />
+                    }
                 </div>
                 <div className="filter-select">
                     <select
+                        name="filter_select"
                         className={darkMode ? "darkmode-light" : ""}
                         onChange={handleFilter}
                     >
@@ -65,7 +112,14 @@ export const Home = ({ darkMode }) => {
                     </select>
                 </div>
             </div>
-            <div className="countries">
+            {error && (
+                <div className={`error ${darkMode ? "darkmode-light" : ""}`}>
+                    <p>
+                        <BiError /> {error} <BiError />
+                    </p>
+                </div>
+            )}
+            <main className="countries">
                 {filteredCountries?.map((val, index) => (
                     <div
                         key={index}
@@ -73,14 +127,17 @@ export const Home = ({ darkMode }) => {
                             darkMode ? "darkmode-light" : ""
                         }`}
                     >
-                        <div className="country-img">
-                            <img src={val.flags.png} />
-                        </div>
+                        <img
+                            className="country-img"
+                            src={val.flags.png}
+                            alt={`${val.name.common} country flag`}
+                        />
                         <div className={`country-info`}>
                             <Link
+                                title={val.name.common}
                                 to={`/${format_link(
                                     val.name.common.toLowerCase(),
-                                    true
+                                    false
                                 )}`}
                             >
                                 <h3
@@ -104,7 +161,7 @@ export const Home = ({ darkMode }) => {
                         </div>
                     </div>
                 ))}
-            </div>
+            </main>
         </section>
     );
 };

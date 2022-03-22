@@ -3,7 +3,8 @@ const format_number = (number) => {
 };
 
 const format_link = (link, request) => {
-    if (link.includes("-")) return link;
+
+    if(link.includes('timor') || link.includes('bissau')) return link;
     return !request ? link.replace(" ", "-") : link.replace("-", " ");
 };
 

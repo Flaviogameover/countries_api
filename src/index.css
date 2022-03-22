@@ -83,6 +83,38 @@ header {
 
 /*---------- Home ----------*/
 
+.home {
+    position: relative;
+}
+
+.scroll {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    cursor: pointer;
+    font-size: 38px;
+    background-color: #fff;
+    color: #202c37;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.error {
+    background-color: white;
+    box-shadow: 0 2px 4px 0px rgb(0 0 0 / 24%);
+    transition: all 0.2s;
+    margin: 0 2%;
+    padding: 20px 2%;
+    text-align: center;
+    font-size: 1.5rem;
+    border-radius: 5px;
+}
+
+.error svg {
+    vertical-align: -4px;
+    transition: all 0.08s;
+}
+
 .filter {
     display: flex;
     flex-wrap: wrap;
@@ -93,9 +125,11 @@ header {
 
 .filter-input {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.filter-input svg {
+.filter-input svg.search {
     position: absolute;
     font-size: 20px;
     color: #858585;
@@ -118,6 +152,16 @@ header {
 
 .filter-input input::placeholder {
     color: #858585;
+}
+
+.filter-input svg.close-input {
+    position: absolute;
+    font-size: 20px;
+    color: #858585;
+    right: 0;
+    top: 22px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
 }
 
 .filter-select select {
@@ -150,12 +194,12 @@ header {
 
 .country-single .country-img {
     width: 100%;
-    max-height: 180px;
+    min-height: 180px;
 }
 
-.country-img img {
+.country-img {
     max-height: 180px;
-    height: 180px;
+
     width: 100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -199,10 +243,6 @@ header {
 }
 
 .back-btn {
-    padding: 10px 0;
-}
-
-.back-btn a {
     display: inline-block;
     text-decoration: none;
     max-width: 150px;
@@ -220,12 +260,8 @@ header {
 
 .country-flag {
     width: 50%;
-}
-
-.country-flag img {
     max-height: 500px;
     height: 100%;
-    width: 100%;
 }
 
 .country-page-info {

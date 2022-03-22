@@ -10,44 +10,53 @@ export const Country = ({ darkMode }) => {
     const params = useParams();
 
     useEffect(() => {
-        (async () => {
-            setCountry(null);
-            setBorder([]);
-            const response = await axios.get(
-                "https://restcountries.com/v3.1/name/" +
-                    format_link(params.country, true) +
-                    "?fullText=true"
-            );
-
-            response.data[0].borders?.map(async (i) => {
-                const response_border = await axios.get(
-                    "https://restcountries.com/v3.1/alpha/" + i
+        try {
+            (async () => {
+                setCountry(null);
+                setBorder([]);
+                const response = await axios.get(
+                    "https://restcountries.com/v3.1/name/" +
+                        format_link(params.country, true) +
+                        "?fullText=true"
                 );
-                setBorder((val) => [
-                    ...val,
-                    response_border.data[0].name.common,
-                ]);
-            });
-            setCountry(response.data[0]);
-        })();
+
+
+                response.data[0].borders?.map(async (i) => {
+                    const response_border = await axios.get(
+                        "https://restcountries.com/v3.1/alpha/" + i
+                    );
+                    setBorder((val) => [
+                        ...val,
+                        response_border.data[0].name.common,
+                    ]);
+                });
+                setCountry(response.data[0]);
+            })();
+        } catch (e) {
+            console.error(e);
+        }
     }, [params.country]);
 
     return (
         <section className="country-page">
-            <div className={`back-btn`}>
-                <Link
-                    className={`${
-                        darkMode ? "darkmode-text darkmode-light" : ""
-                    }`}
-                    to="/"
-                >
-                    <BsArrowLeft /> Back
-                </Link>
-            </div>
-            <div className="country-page-display">
-                <div className="country-flag">
-                    {country?.flags.png && <img src={country?.flags.png} />}
-                </div>
+            <Link
+                className={`back-btn ${
+                    darkMode ? "darkmode-text darkmode-light" : ""
+                }`}
+                to="/"
+            >
+                <BsArrowLeft /> Back
+            </Link>
+            {
+                country &&
+                <main className="country-page-display">
+                {country?.flags.png && (
+                    <img
+                        className="country-flag"
+                        src={country?.flags.png}
+                        alt={`${country?.name.common} country flag`}
+                    />
+                )}
                 <div className="country-page-info">
                     <h1>{country?.name.common}</h1>
                     <div className="info-flex">
@@ -92,30 +101,29 @@ export const Country = ({ darkMode }) => {
                         </div>
                     </div>
                     {border.length > 0 && (
-                        <div className="info-border">
-                            <div className="border-countries">
-                                <h3>Border Countries:</h3>
-                                {border?.map((val, index) => (
-                                    <Link
-                                        className={`${
-                                            darkMode
-                                                ? "darkmode-text darkmode-light"
-                                                : ""
-                                        }`}
-                                        to={`/${format_link(
-                                            val.toLowerCase(),
-                                            true
-                                        )}`}
-                                        key={index}
-                                    >
-                                        {val}
-                                    </Link>
-                                ))}
-                            </div>
+                        <div className="info-border border-countries">
+                            <h3>Border Countries:</h3>
+                            {border?.map((val, index) => (
+                                <Link
+                                    className={`${
+                                        darkMode
+                                            ? "darkmode-text darkmode-light"
+                                            : ""
+                                    }`}
+                                    to={`/${format_link(
+                                        val.toLowerCase(),
+                                        true
+                                    )}`}
+                                    key={index}
+                                >
+                                    {val}
+                                </Link>
+                            ))}
                         </div>
                     )}
                 </div>
-            </div>
+            </main>
+            }
         </section>
     );
 };
