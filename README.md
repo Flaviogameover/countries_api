@@ -37,7 +37,7 @@ Users should be able to:
 ### Links
 
 -   Solution URL: [Github](https://github.com/Flaviogameover/countries_api)
--   Live Site URL: [Heroku](https://flaviogameover-countries-api.netlify.app)
+-   Live Site URL: [Netlify](https://flaviogameover-countries-api.netlify.app)
 
 ## My process
 
