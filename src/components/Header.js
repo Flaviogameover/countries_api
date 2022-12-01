@@ -13,7 +13,6 @@ export const Header = ({ darkMode, setDarkMode }) => {
                     className="header-darkmode"
                 >
                     {!darkMode ? <FaMoon /> : <FaSun />}
-                    <p>Dark Mode</p>
                 </div>
             </div>
         </header>

@@ -6,7 +6,7 @@ import { BiError } from "react-icons/bi";
 import { format_number, format_link } from "../functions/index";
 
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from '../services/';
 
 export const Home = ({ darkMode }) => {
     const [countries, setCountries] = useState(null);
@@ -18,10 +18,8 @@ export const Home = ({ darkMode }) => {
     useEffect(() => {
         try {
             (async () => {
-                const response = await axios.get(
-                    "https://restcountries.com/v3.1/all"
-                );
 
+                const response = await api.get('all');
                 setCountries(response.data);
                 setFilteredCountries(response.data);
             })();
@@ -30,12 +28,10 @@ export const Home = ({ darkMode }) => {
         }
     }, []);
 
-    window.onscroll = (e) =>{
-        console.log(document.documentElement.scrollTop);
-        if(document.documentElement.scrollTop > 100) setScroll(true);
+    window.onscroll = (e) => {
+        if (document.documentElement.scrollTop > 100) setScroll(true);
         else setScroll(false);
     };
-
     const handleSearch = (e) => {
         let new_arr = countries?.filter((country) =>
             country.name.common
@@ -69,99 +65,115 @@ export const Home = ({ darkMode }) => {
     };
 
     const handleScroll = () => {
-        document.getElementsByTagName('html')[0].scrollIntoView({ behavior: "smooth" });
-    }
-    
+        document
+            .getElementsByTagName("html")[0]
+            .scrollIntoView({ behavior: "smooth" });
+    };
 
     return (
         <main className="home">
-            {scroll && <BsFillArrowUpCircleFill onClick={handleScroll} className={`scroll ${darkMode ? "darkmode-bg" : ""}`} />}
-            <div className="filter">
-                <div
-                    className={`filter-input ${
-                        darkMode ? "darkmode-input" : ""
-                    }`}
-                >
-                    <AiOutlineSearch className="search" />
-                    <input
-                        onChange={handleSearch}
-                        value={search}
-                        name="filter_input"
-                        type="text"
-                        placeholder="Search for a country..."
-                    />
-                    {search && 
-                        <AiOutlineCloseCircle
-                            onClick={handleReset}
-                            className={`close-input`}
+            {countries && (
+                <>
+                    {scroll && (
+                        <BsFillArrowUpCircleFill
+                            onClick={handleScroll}
+                            className={`scroll ${
+                                darkMode ? "darkmode-bg" : ""
+                            }`}
                         />
-                    }
-                </div>
-                <div className="filter-select">
-                    <select
-                        name="filter_select"
-                        className={darkMode ? "darkmode-light" : ""}
-                        onChange={handleFilter}
-                    >
-                        <option value="">Filter by Region</option>
-                        <option value="Africa">Africa</option>
-                        <option value="Americas">America</option>
-                        <option value="Asia">Asia</option>
-                        <option value="Europe">Europe</option>
-                        <option value="Oceania">Oceania</option>
-                    </select>
-                </div>
-            </div>
-            {error && (
-                <div className={`error ${darkMode ? "darkmode-light" : ""}`}>
-                    <p>
-                        <BiError /> {error} <BiError />
-                    </p>
-                </div>
-            )}
-            <div className="countries">
-                {filteredCountries?.map((val, index) => (
-                    <div
-                        key={index}
-                        className={`country-single ${
-                            darkMode ? "darkmode-light" : ""
-                        }`}
-                    >
-                        <img
-                            className="country-img"
-                            src={val.flags.png}
-                            alt={`${val.name.common} country flag`}
-                        />
-                        <div className={`country-info`}>
-                            <Link
-                                title={val.name.common}
-                                to={`/${format_link(
-                                    val.name.common.toLowerCase(),
-                                    false
-                                )}`}
+                    )}
+                    <div className="filter">
+                        <div
+                            className={`filter-input ${
+                                darkMode ? "darkmode-input" : ""
+                            }`}
+                        >
+                            <AiOutlineSearch className="search" />
+                            <input
+                                onChange={handleSearch}
+                                value={search}
+                                name="filter_input"
+                                type="text"
+                                placeholder="Search for a country..."
+                            />
+                            {search && (
+                                <AiOutlineCloseCircle
+                                    onClick={handleReset}
+                                    className={`close-input`}
+                                />
+                            )}
+                        </div>
+                        <div className="filter-select">
+                            <select
+                                name="filter_select"
+                                className={darkMode ? "darkmode-light" : ""}
+                                onChange={handleFilter}
                             >
-                                <h3
-                                    className={`${
-                                        darkMode ? "darkmode-text" : ""
-                                    }`}
-                                >
-                                    {val.name.common}
-                                </h3>
-                            </Link>
-                            <p>
-                                <b>Population</b>:{" "}
-                                {format_number(val.population)}
-                            </p>
-                            <p>
-                                <b>Region</b>: {val.region}
-                            </p>
-                            <p>
-                                <b>Capital</b>: {val.capital}
-                            </p>
+                                <option value="">Filter by Region</option>
+                                <option value="Africa">Africa</option>
+                                <option value="Americas">America</option>
+                                <option value="Asia">Asia</option>
+                                <option value="Europe">Europe</option>
+                                <option value="Oceania">Oceania</option>
+                            </select>
                         </div>
                     </div>
-                ))}
-            </div>
+                    {error && (
+                        <div
+                            className={`error ${
+                                darkMode ? "darkmode-light" : ""
+                            }`}
+                        >
+                            <p>
+                                <BiError /> {error} <BiError />
+                            </p>
+                        </div>
+                    )}
+                    <div className="countries">
+                        {filteredCountries?.map((val, index) => (
+                            <div
+                                key={index}
+                                className={`country-single ${
+                                    darkMode ? "darkmode-light" : ""
+                                }`}
+                            >
+                                <img
+                                    className="country-img"
+                                    src={val.flags.png}
+                                    alt={`${val.name.common} country flag`}
+                                />
+                                <div className={`country-info`}>
+                                    <Link
+                                        title={val.name.common}
+                                        to={`/${format_link(
+                                            val.name.common.toLowerCase(),
+                                            false
+                                        )}`}
+                                    >
+                                        <h3
+                                            className={`${
+                                                darkMode ? "darkmode-text" : ""
+                                            }`}
+                                        >
+                                            {val.name.common}
+                                        </h3>
+                                    </Link>
+                                    <p>
+                                        <b>Population</b>:{" "}
+                                        {format_number(val.population)}
+                                    </p>
+                                    <p>
+                                        <b>Region</b>: {val.region}
+                                    </p>
+                                    <p>
+                                        <b>Capital</b>: {val.capital}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
         </main>
     );
 };
