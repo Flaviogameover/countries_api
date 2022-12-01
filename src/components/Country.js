@@ -15,7 +15,7 @@ export const Country = ({ darkMode }) => {
                 setCountry(null);
                 setBorder([]);
                 const response = await api.get(
-                    `${process.env.REACT_APP_API_URL}name/${format_link(
+                    `name/${format_link(
                         params.country,
                         true
                     )}?fullText=true`
@@ -23,7 +23,7 @@ export const Country = ({ darkMode }) => {
 
                 response.data[0].borders?.map(async (i) => {
                     const response_border = await api.get(
-                        `${process.env.REACT_APP_API_URL}/${i}`
+                        `alpha/${i}`
                     );
                     setBorder((val) => [
                         ...val,
